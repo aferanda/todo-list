@@ -16,7 +16,7 @@
   font-size: 1rem;
   font-weight: 400;
   gap: 0.5rem;
-  line-height: 140%;
+  line-height: 1.4;
   outline: none;
   padding: 1rem;
 
@@ -36,7 +36,7 @@
   font-size: 0.875rem;
   font-weight: 700;
   gap: 0.5rem;
-  line-height: 140%;
+  line-height: 1.4;
   padding: 1rem;
   width: 90px;
 
