@@ -1,0 +1,52 @@
+.newTask {
+  height: 54px;
+  margin: calc(0px - 54px/2) auto 0;
+  width: 736px;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.newTask input {
+  background: var(--gray-500);
+  border-radius: 0.5rem;
+  border: 1px solid var(--gray-700);
+  color: var(--gray-300);
+  font-size: 1rem;
+  font-weight: 400;
+  gap: 0.5rem;
+  line-height: 140%;
+  outline: none;
+  padding: 1rem;
+
+  flex-grow: 1;
+}
+
+.newTask input:focus {
+  border: 1px solid var(--purple-700);
+  color: var(--gray-100);
+}
+
+.newTask button {
+  background: var(--blue-700);
+  border-radius: 0.5rem;
+  border: 0;
+  color: var(--gray-100);
+  font-size: 0.875rem;
+  font-weight: 700;
+  gap: 0.5rem;
+  line-height: 140%;
+  padding: 1rem;
+  width: 90px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: background-color 0.1s;
+}
+
+.newTask button:hover {
+  background: var(--blue-500);
+}
