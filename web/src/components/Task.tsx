@@ -55,7 +55,7 @@ export function Task() {
                     />
                     <label htmlFor={id} />
                   </div>
-                  <p>{title}</p>
+                  <p className={isComplete ? styles.titleThrough : styles.title}>{title}</p>
                   <button />
                 </div>
               ))}

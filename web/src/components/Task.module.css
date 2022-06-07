@@ -144,13 +144,21 @@
 }
 
 .task p {
-  color: var(--gray-100);
   flex-grow: 1;
   font-size: 0.875rem;
   font-weight: 400;
   height: 40px;
   line-height: 1.4;
   width: 632px;
+}
+
+.title {
+  color: var(--gray-100);
+}
+
+.titleThrough {
+  text-decoration: line-through;
+  color: var(--gray-300);
 }
 
 .task button {
