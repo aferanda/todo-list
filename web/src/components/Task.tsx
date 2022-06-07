@@ -1,55 +1,58 @@
-import { v4 as uuidv4 } from 'uuid';
 import { NewTask } from "./NewTask";
 
 import styles from './Task.module.css';
 import clipboardImg from '../assets/clipboard.svg';
-import trashImg from '../assets/trash.svg';
+import { ChangeEvent, useState } from 'react';
 
+interface Task {
+  id: string;
+  title: string;
+  isComplete: boolean;
+}
 
 export function Task() {
-  const taskList = [
-    {
-      id: uuidv4(),
-      title: 'Estudar TypeScript',
-      isComplete: false
-    },
-    {
-      id: uuidv4(),
-      title: 'Arrumar a casa',
-      isComplete: false
-    },
-    {
-      id: uuidv4(),
-      title: 'Fazer compras',
-      isComplete: true
-    },
-    {
-      id: uuidv4(),
-      title: 'Passear com o pet',
-      isComplete: false
-    },
-  ]
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  function handleCompletedTask(event: ChangeEvent<HTMLInputElement>) {
+    const updatedTasks = tasks.map((task) => {
+      if (task.id === event.target.id) {
+        task.isComplete = event.target.checked;
+      }
+      return task;
+    })
+    setTasks(updatedTasks);
+  }
+
+  function completedTaskCounter() {
+    return tasks.filter((task) => task.isComplete === true).length;
+  }
+
   return (
     <>
-      <NewTask />
+      <NewTask tasks={tasks} setTasks={setTasks} />
       <section className={styles.tasks}>
         <div className={styles.tasksInfo}>
           <strong className={styles.createdTaskCounter}>
             Tarefas criadas
-            <span>0</span>
+            <span>{tasks.length}</span>
           </strong>
           <strong className={styles.taskDoneCounter}>
             Concluídas
-            <span>0</span>
+            <span>{`${completedTaskCounter()} de ${tasks.length}`}</span>
           </strong>
         </div>
-        {taskList.length
+        {tasks.length
           ? (
             <div className={styles.taskBox}>
-              {taskList.map(({ id, title, isComplete }) => (
+              {tasks.map(({ id, title, isComplete }) => (
                 <div key={id} className={styles.task}>
                   <div className={styles.round}>
-                    <input type="checkbox" id={id} checked={isComplete} />
+                    <input
+                      type="checkbox"
+                      id={id}
+                      defaultChecked={isComplete}
+                      onChange={handleCompletedTask}
+                    />
                     <label htmlFor={id} />
                   </div>
                   <p>{title}</p>
