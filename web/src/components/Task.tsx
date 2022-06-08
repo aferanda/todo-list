@@ -27,6 +27,11 @@ export function Task() {
     return tasks.filter((task) => task.isComplete === true).length;
   }
 
+  function handleTaskDeletion(id: string) {
+    const updatedTasks = tasks.filter((task) => task.id !== id);
+    setTasks(updatedTasks);
+  }
+
   return (
     <>
       <NewTask tasks={tasks} setTasks={setTasks} />
@@ -56,7 +61,7 @@ export function Task() {
                     <label htmlFor={id} />
                   </div>
                   <p className={isComplete ? styles.titleThrough : styles.title}>{title}</p>
-                  <button />
+                  <button onClick={() => handleTaskDeletion(id)} />
                 </div>
               ))}
             </div>
