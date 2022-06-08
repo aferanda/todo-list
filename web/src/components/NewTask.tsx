@@ -36,7 +36,7 @@ export function NewTask({ tasks, setTasks }: NewTaskProps) {
         value={newTask}
         onChange={handleNewTaskChange}
       />
-      <button>
+      <button disabled={newTask === ''}>
         Criar
         <img src={plusImg} alt="plus symbol" />
       </button>
