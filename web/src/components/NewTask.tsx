@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FormEvent, SetStateAction, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { createTask } from '../service/api';
 
 import styles from './NewTask.module.css';
 import plusImg from '../assets/plus.svg';
@@ -24,7 +25,7 @@ export function NewTask({ tasks, setTasks }: NewTaskProps) {
 
   function handleCreateNewTask(event: FormEvent) {
     event.preventDefault();
-    setTasks([...tasks, { id: uuidv4(), title: newTask, isComplete: false }]);
+    createTask({ title: newTask, isComplete: false, userId: 1 });
     setNewTask('');
   }
 

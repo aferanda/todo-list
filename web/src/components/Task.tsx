@@ -1,8 +1,10 @@
+import { ChangeEvent, useEffect, useState } from 'react';
+
 import { NewTask } from "./NewTask";
+import { getTasks, removeTask, updateDoneTask } from "../service/api";
 
 import styles from './Task.module.css';
 import clipboardImg from '../assets/clipboard.svg';
-import { ChangeEvent, useState } from 'react';
 
 interface Task {
   id: string;
@@ -14,13 +16,7 @@ export function Task() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   function handleCompletedTask(event: ChangeEvent<HTMLInputElement>) {
-    const updatedTasks = tasks.map((task) => {
-      if (task.id === event.target.id) {
-        task.isComplete = event.target.checked;
-      }
-      return task;
-    })
-    setTasks(updatedTasks);
+    updateDoneTask(event.target.id, event.target.checked);
   }
 
   function completedTaskCounter() {
@@ -28,9 +24,17 @@ export function Task() {
   }
 
   function handleTaskDeletion(id: string) {
-    const updatedTasks = tasks.filter((task) => task.id !== id);
-    setTasks(updatedTasks);
+    removeTask(id);
   }
+
+  useEffect(() => {
+    async function getAllTasks() {
+      const data = await getTasks();
+      setTasks(data);
+    }
+
+    getAllTasks();
+  })
 
   return (
     <>
