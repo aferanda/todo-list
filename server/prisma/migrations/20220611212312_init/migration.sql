@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE `Task` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` VARCHAR(191) NOT NULL,
     `title` TEXT NOT NULL,
     `isComplete` BOOLEAN NOT NULL,
     `userId` INTEGER NOT NULL,
