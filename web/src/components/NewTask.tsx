@@ -1,15 +1,23 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from 'react';
 
 import { createTask } from '../service/api';
 
 import styles from './NewTask.module.css';
 import plusImg from '../assets/plus.svg';
 
-interface NewTaskProps {
-  userId: string;
+interface Task {
+  id: string;
+  title: string;
+  isComplete: boolean;
 }
 
-export function NewTask({ userId }: NewTaskProps) {
+interface NewTaskProps {
+  userId: string;
+  isMutate: boolean;
+  setIsMutate: Dispatch<SetStateAction<boolean>>;
+}
+
+export function NewTask({ userId, isMutate, setIsMutate }: NewTaskProps) {
   const [newTask, setNewTask] = useState('');
 
   function handleNewTaskChange(event: ChangeEvent<HTMLInputElement>) {
@@ -19,6 +27,7 @@ export function NewTask({ userId }: NewTaskProps) {
   async function handleCreateNewTask(event: FormEvent) {
     event.preventDefault();
     createTask({ title: newTask, isComplete: false, userId });
+    setIsMutate(!isMutate);
     setNewTask('');
   }
 

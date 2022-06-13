@@ -18,9 +18,11 @@ export function Task() {
   const userId = location.state as string;
 
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [isMutate, setIsMutate] = useState(false);
 
   function handleCompletedTask(event: ChangeEvent<HTMLInputElement>) {
     updateDoneTask(event.target.id, event.target.checked);
+    setIsMutate(!isMutate);
   }
 
   function completedTaskCounter() {
@@ -29,6 +31,7 @@ export function Task() {
 
   function handleTaskDeletion(id: string) {
     removeTask(id);
+    setIsMutate(!isMutate);
   }
 
   useEffect(() => {
@@ -38,11 +41,21 @@ export function Task() {
     }
 
     getAllTasks();
-  })
+  }, [tasks]);
+
+  useEffect(() => {
+    async function getAllTasks() {
+      const data = await getTasks(userId);
+      setTasks(data);
+    }
+
+    getAllTasks();
+  }, [isMutate]);
+
 
   return (
     <>
-      <NewTask userId={userId} />
+      <NewTask userId={userId} setIsMutate={setIsMutate} isMutate={isMutate} />
       <section className={styles.tasks}>
         <div className={styles.tasksInfo}>
           <strong className={styles.createdTaskCounter}>
