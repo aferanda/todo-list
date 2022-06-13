@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios from "axios";
 
 const api = axios.create({
   baseURL: 'http://localhost:4000'
@@ -7,12 +7,18 @@ const api = axios.create({
 interface TaskBody {
   title: string;
   isComplete: boolean;
-  userId: number;
+  userId: string;
 }
 
-export const createUser = async () => {
+interface UserBody {
+  username: string;
+  email: string;
+}
+
+export const createUser = async (body: UserBody) => {
   try {
-    await api.post('/login');
+    const { data } = await api.post('/login', body);
+    return data;
   } catch (error) {
     console.log(error);
   }
@@ -26,9 +32,9 @@ export const createTask = async (body: TaskBody) => {
   }
 }
 
-export const getTasks = async () => {
+export const getTasks = async (userId: string) => {
   try {
-    const { data } = await api.get('/tasks');
+    const { data } = await api.get(`/tasks/${userId}`);
     return data;
   } catch (error) {
     console.log(error);

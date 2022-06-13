@@ -1,4 +1,5 @@
 import { ChangeEvent, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { NewTask } from "./NewTask";
 import { getTasks, removeTask, updateDoneTask } from "../service/api";
@@ -13,6 +14,9 @@ interface Task {
 }
 
 export function Task() {
+  const location  = useLocation();
+  const userId = location.state as string;
+
   const [tasks, setTasks] = useState<Task[]>([]);
 
   function handleCompletedTask(event: ChangeEvent<HTMLInputElement>) {
@@ -29,7 +33,7 @@ export function Task() {
 
   useEffect(() => {
     async function getAllTasks() {
-      const data = await getTasks();
+      const data = await getTasks(userId);
       setTasks(data);
     }
 
@@ -38,7 +42,7 @@ export function Task() {
 
   return (
     <>
-      <NewTask tasks={tasks} setTasks={setTasks} />
+      <NewTask userId={userId} />
       <section className={styles.tasks}>
         <div className={styles.tasksInfo}>
           <strong className={styles.createdTaskCounter}>
