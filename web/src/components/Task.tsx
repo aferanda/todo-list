@@ -1,8 +1,11 @@
+import { ChangeEvent, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
 import { NewTask } from "./NewTask";
+import { getTasks, removeTask, updateDoneTask } from "../service/api";
 
 import styles from './Task.module.css';
 import clipboardImg from '../assets/clipboard.svg';
-import { ChangeEvent, useState } from 'react';
 
 interface Task {
   id: string;
@@ -11,16 +14,13 @@ interface Task {
 }
 
 export function Task() {
+  const location  = useLocation();
+  const userId = location.state as string;
+
   const [tasks, setTasks] = useState<Task[]>([]);
 
   function handleCompletedTask(event: ChangeEvent<HTMLInputElement>) {
-    const updatedTasks = tasks.map((task) => {
-      if (task.id === event.target.id) {
-        task.isComplete = event.target.checked;
-      }
-      return task;
-    })
-    setTasks(updatedTasks);
+    updateDoneTask(event.target.id, event.target.checked);
   }
 
   function completedTaskCounter() {
@@ -28,13 +28,21 @@ export function Task() {
   }
 
   function handleTaskDeletion(id: string) {
-    const updatedTasks = tasks.filter((task) => task.id !== id);
-    setTasks(updatedTasks);
+    removeTask(id);
   }
+
+  useEffect(() => {
+    async function getAllTasks() {
+      const data = await getTasks(userId);
+      setTasks(data);
+    }
+
+    getAllTasks();
+  })
 
   return (
     <>
-      <NewTask tasks={tasks} setTasks={setTasks} />
+      <NewTask userId={userId} />
       <section className={styles.tasks}>
         <div className={styles.tasksInfo}>
           <strong className={styles.createdTaskCounter}>
