@@ -11,15 +11,31 @@ app.use(cors());
 app.use(express.json());
 
 app.post('/login', async (req, res) => {
-  const { name, email } = req.body;
-  await prisma.user.create({
-    data: {
-      name,
-      email
-    }
+  const { username, email } = req.body;
+  let userId = "";
+  let code = 0;
+
+  const findUser = await prisma.user.findUnique({
+    where: { email }
   });
 
-  return res.status(201).json('create');
+  if (findUser) {
+    userId = findUser.id;
+    code = 200;
+  }
+
+  if (!findUser) {
+    const user = await prisma.user.create({
+      data: {
+        username,
+        email
+      }
+    });
+    userId = user.id;
+    code = 201;
+  }
+
+  return res.status(code).json(userId);
 });
 
 app.post('/tasks', async (req, res) => {
@@ -35,8 +51,11 @@ app.post('/tasks', async (req, res) => {
   return res.status(201).json(newTask);
 });
 
-app.get('/tasks', async (_req, res) => {
-  const tasks = await prisma.task.findMany();
+app.get('/tasks/:userId', async (req, res) => {
+  const { userId } = req.params;
+  const tasks = await prisma.task.findMany({
+    where: { userId }
+  });
 
   return res.status(200).json(tasks);
 });

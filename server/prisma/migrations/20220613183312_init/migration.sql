@@ -3,7 +3,7 @@ CREATE TABLE `Task` (
     `id` VARCHAR(191) NOT NULL,
     `title` TEXT NOT NULL,
     `isComplete` BOOLEAN NOT NULL,
-    `userId` INTEGER NOT NULL,
+    `userId` VARCHAR(191) NOT NULL,
 
     INDEX `userId`(`userId`),
     PRIMARY KEY (`id`)
@@ -11,11 +11,11 @@ CREATE TABLE `Task` (
 
 -- CreateTable
 CREATE TABLE `User` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(255) NULL,
+    `id` VARCHAR(191) NOT NULL,
+    `username` VARCHAR(255) NOT NULL,
     `email` VARCHAR(255) NOT NULL,
 
-    UNIQUE INDEX `email`(`email`),
+    UNIQUE INDEX `User_email_key`(`email`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
