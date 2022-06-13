@@ -1,13 +1,16 @@
-import { Header } from './components/Header';
-import { Task } from './components/Task';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Login } from './pages/Login';
+import { Tasks } from './pages/Tasks';
 
 import './styles/global.css';
 
 export function App() {
   return (
-    <>
-      <Header />
-      <Task />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/tasks" element={<Tasks />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
