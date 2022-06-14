@@ -180,10 +180,9 @@
   background-color: var(--gray-400);
 }
 
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 768px) {
   .tasks {
-    margin: 2rem auto 0;
-    padding: 20px;
+    padding: 0 20px;
     width: auto;
   }
 

@@ -51,9 +51,9 @@
   background: var(--blue-500);
 }
 
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 768px) {
   .newTask {
-    padding: 20px;
+    padding: 0 20px;
     width: auto;
   }
 }
