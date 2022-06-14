@@ -179,3 +179,15 @@
   background: url('../assets/trashHover.svg') no-repeat center;
   background-color: var(--gray-400);
 }
+
+@media screen and (max-width: 414px) {
+  .tasks {
+    margin: 2rem auto 0;
+    padding: 20px;
+    width: auto;
+  }
+
+  .task p {
+    width: auto;
+  }
+}
