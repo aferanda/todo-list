@@ -26,10 +26,6 @@ export function Login() {
     <>
       <Header />
       <section className={styles.loginBox}>
-        <div className={styles.loginText}>
-          <h2>seu gerenciador de tarefas sempre a mão</h2>
-          <p>...porque você não precisa se lembrar de tudo.</p>
-        </div>
         <form
           className={styles.loginInfo}
           onSubmit={handleLogin}
@@ -38,7 +34,7 @@ export function Login() {
             type="text"
             name="username"
             value={user.username}
-            placeholder="Name"
+            placeholder="Nome"
             onChange={handleChangeInput}
           />
           <input
