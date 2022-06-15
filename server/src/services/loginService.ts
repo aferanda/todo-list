@@ -10,28 +10,23 @@ interface LoginProps {
 class LoginService {
   async create(body: LoginProps) {
     const { username, email } = body;
-    let userId = "";
-    let code = 0;
 
     const findUser = await prisma.user.findUnique({
       where: { email }
     });
 
-    if (findUser) {
-      userId = findUser.id;
-      code = 200;
-    } else {
+    if (!findUser) {
       const user = await prisma.user.create({
         data: {
           username,
           email
         }
       });
-      userId = user.id;
-      code = 201;
+
+      return { code: 201, userId: user.id };
     }
 
-    return { code, userId };
+    return { code: 200, userId: findUser.id };
   }
 }
 

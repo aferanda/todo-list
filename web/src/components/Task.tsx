@@ -16,6 +16,7 @@ interface Task {
 export function Task() {
   const location  = useLocation();
   const userId = location.state as string;
+  console.log(userId);
 
   const [tasks, setTasks] = useState<Task[]>([]);
 
