@@ -19,7 +19,8 @@ export function Login() {
     event.preventDefault();
     const userId = await createUser(user);
     setUser({ username: "", email: "" });
-    navigate('/tasks', { state: userId });
+    localStorage.setItem('userId', JSON.stringify(userId));
+    navigate('/tasks');
   }
 
   return (

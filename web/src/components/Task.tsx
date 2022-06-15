@@ -14,11 +14,9 @@ interface Task {
 }
 
 export function Task() {
-  const location  = useLocation();
-  const userId = location.state as string;
-  console.log(userId);
-
   const [tasks, setTasks] = useState<Task[]>([]);
+
+  const userId = JSON.parse(localStorage.getItem('userId') || '');
 
   async function handleCompletedTask(event: ChangeEvent<HTMLInputElement>) {
     await updateDoneTask(event.target.id, event.target.checked);

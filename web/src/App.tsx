@@ -8,8 +8,8 @@ export function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
         <Route path="/tasks" element={<Tasks />} />
+        <Route path="/" element={<Login />} />
       </Routes>
     </BrowserRouter>
   )
