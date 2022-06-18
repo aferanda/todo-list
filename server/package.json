@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "npx prisma migrate dev && node dist/index.js",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --watch \"./src/**\" --ext \"ts,js\" --ignore \"src/**/*.spec.ts,src/**/*.json\" --exec \"ts-node src/index.ts\""
