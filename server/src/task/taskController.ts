@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { TaskService } from "../services";
+import TaskService from "./taskService";
 
 class TaskController {
   async create(req: Request, res: Response) {
