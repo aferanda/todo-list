@@ -35,12 +35,12 @@ export function NewTask({ userId, setTasks }: NewTaskProps) {
     <form onSubmit={handleCreateNewTask} className={styles.newTask}>
       <input
         type="text"
-        placeholder="Adicione uma nova tarefa"
+        placeholder="Add a new task"
         value={newTask}
         onChange={handleNewTaskChange}
       />
       <button disabled={newTask === ''}>
-        Criar
+        Create
         <img src={plusImg} alt="plus symbol" />
       </button>
     </form>

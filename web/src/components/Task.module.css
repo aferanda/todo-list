@@ -61,6 +61,7 @@
 .emptyTaskBox strong {
   font-weight: 700;
   line-height: 1.4;
+  text-align: center;
 }
 
 .emptyTaskBox strong p {

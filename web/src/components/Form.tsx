@@ -12,7 +12,7 @@ interface FormProps {
 
 export function Form({route, page}: FormProps) {
   const navigate = useNavigate();
-  const [user, setUser] = useState({ username: "", email: "", password: "" });
+  const [user, setUser] = useState({ username: "", email: "", password: "", confirmPassword: "" });
 
   function handleChangeInput(event: ChangeEvent<HTMLInputElement>) {
     const { target: { name, value } } = event;
@@ -27,7 +27,7 @@ export function Form({route, page}: FormProps) {
 
       if (!data) {
         alert('usuário ou senha incorretos');
-        return setUser({ username: "", email: "", password: "" });
+        return setUser({ username: "", email: "", password: "", confirmPassword: "" });
       }
 
       localStorage.setItem('userId', JSON.stringify(data.userId));
@@ -35,17 +35,21 @@ export function Form({route, page}: FormProps) {
     }
 
     if (page === 'register') {
+      if (user.password !== user.confirmPassword) {
+        alert('passwords do not match');
+        return;
+      }
+
       const data = await createUser(user);
 
       if (!data) {
         alert('usuário já cadastrado');
-        return setUser({ username: "", email: "", password: "" });
+        return setUser({ username: "", email: "", password: "", confirmPassword: "" });
       }
 
       localStorage.setItem('userId', JSON.stringify(data.userId));
       navigate('/tasks');
     }
-
   }
 
   return (
@@ -58,7 +62,8 @@ export function Form({route, page}: FormProps) {
           type="text"
           name="username"
           value={user.username}
-          placeholder="Nome"
+          placeholder="Name"
+          required
           onChange={handleChangeInput}
         />
       )}
@@ -67,26 +72,38 @@ export function Form({route, page}: FormProps) {
         name="email"
         value={user.email}
         placeholder="Email"
+        required
         onChange={handleChangeInput}
       />
       <input
         type="password"
         name="password"
         value={user.password}
-        placeholder="Senha"
+        placeholder="Password"
+        required
         onChange={handleChangeInput}
       />
+      { page === 'register' && (
+        <input
+          type="password"
+          name="confirmPassword"
+          value={user.confirmPassword}
+          placeholder="Password"
+          required
+          onChange={handleChangeInput}
+      />
+      )}
       <button type="submit">
-      { page === 'register' ? 'Registrar' : 'Entrar' }
+      { page === 'register' ? 'Register' : 'Login' }
       </button>
       <div className={styles.loginAux}>
         <button
           type="button"
           onClick={() => navigate(route)}
         >
-          { page === 'register' ? 'Já é cadastrado? Faça login' : 'Cadastre-se' }
+          { page === 'register' ? 'Login' : 'Sign In' }
         </button>
-        <button type="button">Esqueceu sua senha?</button>
+        <button type="button">Forgot your password?</button>
       </div>
     </form>
   )

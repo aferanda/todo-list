@@ -48,11 +48,11 @@ export function Task() {
       <section className={styles.tasks}>
         <div className={styles.tasksInfo}>
           <strong className={styles.createdTaskCounter}>
-            Tarefas criadas
+            Created tasks
             <span>{tasks.length}</span>
           </strong>
           <strong className={styles.taskDoneCounter}>
-            Concluídas
+            Completed
             <span>{`${completedTaskCounter()} de ${tasks.length}`}</span>
           </strong>
         </div>
@@ -80,8 +80,8 @@ export function Task() {
             <div className={styles.emptyTaskBox}>
               <img src={clipboardImg} alt="clipboard" />
               <strong>
-                Você ainda não tem tarefas cadastradas
-                <p>Crie tarefas e organize seus itens a fazer</p>
+                You don't have any tasks registered yet
+                <p>Create tasks and organize your to-do items</p>
               </strong>
             </div>
           )}
