@@ -1,5 +1,4 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import { NewTask } from "./NewTask";
 import { getTasks, removeTask, updateDoneTask } from "../service/api";

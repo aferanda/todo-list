@@ -17,6 +17,15 @@ interface UserBody {
 
 export const createUser = async (body: UserBody) => {
   try {
+    const { data } = await api.post('/login/new', body);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const loginUser = async (body: UserBody) => {
+  try {
     const { data } = await api.post('/login', body);
     return data;
   } catch (error) {

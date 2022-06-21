@@ -1,11 +1,11 @@
 import { Header } from "../components/Header";
 import { Form } from "../components/Form";
 
-import styles from './Login.module.css';
+import styles from './Register.module.css';
 
-export function Login() {
-  const route = '/register';
-  const page = 'login';
+export function Register() {
+  const route = '/';
+  const page = 'register';
 
   return (
     <>
