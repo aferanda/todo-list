@@ -4,7 +4,7 @@ import { Task } from "../components/Task";
 export function Tasks() {
   return (
     <>
-      <Header />
+      <Header page="tasks" />
       <Task />
     </>
   )
