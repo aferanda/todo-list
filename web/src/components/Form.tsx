@@ -1,5 +1,6 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/user";
 
 import { createUser, loginUser } from "../service/api";
 
@@ -12,7 +13,7 @@ interface FormProps {
 
 export function Form({route, page}: FormProps) {
   const navigate = useNavigate();
-  const [user, setUser] = useState({ username: "", email: "", password: "", confirmPassword: "" });
+  const { user, setUser } = useContext(UserContext);
 
   function handleChangeInput(event: ChangeEvent<HTMLInputElement>) {
     const { target: { name, value } } = event;
@@ -31,6 +32,7 @@ export function Form({route, page}: FormProps) {
       }
 
       localStorage.setItem('userId', JSON.stringify(data.userId));
+      setUser({ username: "", email: "", password: "", confirmPassword: "" });
       navigate('/tasks');
     }
 
@@ -48,6 +50,7 @@ export function Form({route, page}: FormProps) {
       }
 
       localStorage.setItem('userId', JSON.stringify(data.userId));
+      setUser({ username: "", email: "", password: "", confirmPassword: "" });
       navigate('/tasks');
     }
   }
