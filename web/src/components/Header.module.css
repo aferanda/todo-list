@@ -15,6 +15,10 @@
   align-items: center;
 }
 
+.logout svg {
+  transform: rotate(180deg);
+}
+
 .login {
   justify-content: center;
 }

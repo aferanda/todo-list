@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { FiLogOut } from 'react-icons/fi';
 import styles from './Header.module.css';
 
 import rocketImg from '../assets/rocket.svg';
@@ -27,8 +28,9 @@ export function Header({ page }: HeaderProps) {
           </div>
           <button
             onClick={handleLogout}
+            className={styles.logout}
           >
-            <span className="iconify" data-icon="material-symbols:logout-rounded" data-rotate="180deg"></span>
+            <FiLogOut />
           </button>
         </div>
       ) : (
