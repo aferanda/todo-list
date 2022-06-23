@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-const SECRET = process.env.JWT_SECRET || 'mysecret';
+const SECRET = process.env.JWT_SECRET as string;
 
 const jwtConfig = {
   expiresIn: '1d',

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { Secret, verify } from "jsonwebtoken";
+import { verify } from "jsonwebtoken";
 
 interface IToken {
   id: string;
@@ -12,7 +12,7 @@ export function Auth(req: Request, res: Response, next: NextFunction) {
 
     if (!token) return res.status(401).json({ message: 'Token not found' });
 
-    const SECRET = process.env.JWT_SECRET as Secret;
+    const SECRET = process.env.JWT_SECRET as string;
 
     const decoded = verify(token, SECRET);
 
