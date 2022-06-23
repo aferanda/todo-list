@@ -1,58 +1,22 @@
-import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import { ChangeEvent, FormEvent, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/user";
-
-import { createUser, loginUser } from "../service/api";
 
 import styles from './Form.module.css';
 
 interface FormProps {
   route: string;
   page: string;
+  handleLogin: (event: FormEvent) => void;
 }
 
-export function Form({route, page}: FormProps) {
+export function Form({route, page, handleLogin}: FormProps) {
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
 
   function handleChangeInput(event: ChangeEvent<HTMLInputElement>) {
     const { target: { name, value } } = event;
     setUser(state => ({ ...state, [name]: value }));
-  }
-
-  async function handleLogin(event: FormEvent) {
-    event.preventDefault();
-
-    if (page === 'login') {
-      const data = await loginUser(user);
-
-      if (!data) {
-        alert('usuário ou senha incorretos');
-        return setUser({ username: "", email: "", password: "", confirmPassword: "" });
-      }
-
-      localStorage.setItem('userId', JSON.stringify(data.userId));
-      setUser({ username: "", email: "", password: "", confirmPassword: "" });
-      navigate('/tasks');
-    }
-
-    if (page === 'register') {
-      if (user.password !== user.confirmPassword) {
-        alert('passwords do not match');
-        return;
-      }
-
-      const data = await createUser(user);
-
-      if (!data) {
-        alert('usuário já cadastrado');
-        return setUser({ username: "", email: "", password: "", confirmPassword: "" });
-      }
-
-      localStorage.setItem('userId', JSON.stringify(data.userId));
-      setUser({ username: "", email: "", password: "", confirmPassword: "" });
-      navigate('/tasks');
-    }
   }
 
   return (
