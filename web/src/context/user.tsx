@@ -31,6 +31,11 @@ export function UserProvider({ children }: UserProvider) {
   async function authenticate() {
     const data = await loginUser({ email: user.email, password: user.password });
 
+    if (!data) {
+      alert('usuário ou senha inválidos');
+      return setUser({ username: "", email: "", password: "", confirmPassword: "" });
+    }
+
     localStorage.setItem('token', JSON.stringify(data.token));
 
     return data;

@@ -9,20 +9,16 @@ import styles from './Login.module.css';
 
 export function Login() {
   const navigate = useNavigate();
-  const { setUser, authenticate } = useContext(UserContext);
+  const { authenticate } = useContext(UserContext);
 
   async function handleLogin(event: FormEvent) {
     event.preventDefault();
-
-    const data = await authenticate();
-
-    if (!data) {
-      alert('usuário ou senha incorretos');
-      return setUser({ username: "", email: "", password: "", confirmPassword: "" });
+    try {
+      const data = await authenticate();
+      if (data) return navigate('/tasks');
+    } catch (error) {
+      console.log(error);
     }
-
-    setUser({ username: "", email: "", password: "", confirmPassword: "" });
-    navigate('/tasks');
   }
 
   return (
