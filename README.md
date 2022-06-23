@@ -18,6 +18,7 @@ Alguns conceitos aplicados no desenvolvimento:
 - Rotas
 - Responsividade
 - Integração com backend
+- Autenticação do usuário
 - Banco de Dados
 - Deploy
 
