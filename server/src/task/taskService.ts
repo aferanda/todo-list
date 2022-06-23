@@ -14,8 +14,7 @@ interface DoneTasksProps {
 }
 
 class TaskService {
-  async create(body: TaskProps) {
-    const { title, isComplete, userId } = body;
+  async create({ title, isComplete, userId }: TaskProps) {
     const newTask = await prisma.task.create({
       data: {
         title,

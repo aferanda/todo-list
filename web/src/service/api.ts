@@ -7,15 +7,23 @@ const api = axios.create({
 interface TaskBody {
   title: string;
   isComplete: boolean;
-  userId: string;
 }
 
 interface UserBody {
-  username: string;
   email: string;
+  password: string;
 }
 
 export const createUser = async (body: UserBody) => {
+  try {
+    const { data } = await api.post('/login/new', body);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const loginUser = async (body: UserBody) => {
   try {
     const { data } = await api.post('/login', body);
     return data;
@@ -26,32 +34,36 @@ export const createUser = async (body: UserBody) => {
 
 export const createTask = async (body: TaskBody) => {
   try {
-    await api.post('/tasks', body);
+    const token = JSON.parse(localStorage.getItem('token')!);
+    await api.post('/tasks/create', body, { headers: { Authorization: token } });
   } catch (error) {
     console.log(error);
   }
 }
 
-export const getTasks = async (userId: string) => {
+export const getTasks = async () => {
   try {
-    const { data } = await api.get(`/tasks/${userId}`);
+    const token = JSON.parse(localStorage.getItem('token')!);
+    const { data } = await api.get(`/tasks/list`, { headers: { Authorization: token } });
     return data;
   } catch (error) {
     console.log(error);
   }
 }
 
-export const removeTask = async (id: string) => {
+export const removeTask = async (taskId: string) => {
   try {
-    await api.delete(`/tasks/${id}`);
+    const token = JSON.parse(localStorage.getItem('token')!);
+    await api.delete(`/tasks/delete/${taskId}`, { headers: { Authorization: token } });
   } catch (error) {
     console.log(error);
   }
 }
 
-export const updateDoneTask = async (id: string, isDone: boolean) => {
+export const updateDoneTask = async (taskId: string, isDone: boolean) => {
   try {
-    await api.patch(`/tasks/${id}/${isDone}`);
+    const token = JSON.parse(localStorage.getItem('token')!);
+    await api.patch(`/tasks/update/${taskId}`, { isDone }, { headers: { Authorization: token } });
   } catch (error) {
     console.log(error);
   }

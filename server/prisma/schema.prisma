@@ -11,15 +11,16 @@ model Task {
   id         String  @id @default(uuid())
   title      String  @db.Text
   isComplete Boolean
-  userId     String
+  userId     String  @db.VarChar(255)
   user       User    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "task_ibfk_1")
 
   @@index([userId], map: "userId")
 }
 
 model User {
-  id       String  @id @default(uuid())
-  username String  @db.VarChar(255)
-  email    String  @unique @db.VarChar(255)
+  id       String @id @default(uuid())
+  username String @db.VarChar(255)
+  email    String @unique @db.VarChar(255)
+  password String @db.VarChar(255)
   task     Task[]
 }

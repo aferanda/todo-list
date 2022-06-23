@@ -1,5 +1,4 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import { NewTask } from "./NewTask";
 import { getTasks, removeTask, updateDoneTask } from "../service/api";
@@ -16,11 +15,9 @@ interface Task {
 export function Task() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  const userId = JSON.parse(localStorage.getItem('userId') || '');
-
   async function handleCompletedTask(event: ChangeEvent<HTMLInputElement>) {
     await updateDoneTask(event.target.id, event.target.checked);
-    const data = await getTasks(userId);
+    const data = await getTasks();
     setTasks(data);
   }
 
@@ -30,13 +27,13 @@ export function Task() {
 
   async function handleTaskDeletion(id: string) {
     await removeTask(id);
-    const data = await getTasks(userId);
+    const data = await getTasks();
     setTasks(data);
   }
 
   useEffect(() => {
     async function getAllTasks() {
-      const data = await getTasks(userId);
+      const data = await getTasks();
       setTasks(data);
     }
 
@@ -45,15 +42,15 @@ export function Task() {
 
   return (
     <>
-      <NewTask userId={userId} setTasks={setTasks} />
+      <NewTask setTasks={setTasks} />
       <section className={styles.tasks}>
         <div className={styles.tasksInfo}>
           <strong className={styles.createdTaskCounter}>
-            Tarefas criadas
+            Created tasks
             <span>{tasks.length}</span>
           </strong>
           <strong className={styles.taskDoneCounter}>
-            Concluídas
+            Completed
             <span>{`${completedTaskCounter()} de ${tasks.length}`}</span>
           </strong>
         </div>
@@ -81,8 +78,8 @@ export function Task() {
             <div className={styles.emptyTaskBox}>
               <img src={clipboardImg} alt="clipboard" />
               <strong>
-                Você ainda não tem tarefas cadastradas
-                <p>Crie tarefas e organize seus itens a fazer</p>
+                You don't have any tasks registered yet
+                <p>Create tasks and organize your to-do items</p>
               </strong>
             </div>
           )}

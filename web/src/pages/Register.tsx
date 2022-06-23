@@ -2,28 +2,35 @@ import { FormEvent, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { UserContext } from "../context/user";
+import { createUser } from "../service/api";
 import { Header } from "../components/Header";
 import { Form } from "../components/Form";
 
-import styles from './Login.module.css';
+import styles from './Register.module.css';
 
-export function Login() {
+export function Register() {
   const navigate = useNavigate();
-  const { setUser, authenticate } = useContext(UserContext);
+  const { user, setUser, authenticate } = useContext(UserContext);
 
-  const route = '/register';
-  const page = 'login';
+  const route = '/';
+  const page = 'register';
 
   async function handleLogin(event: FormEvent) {
     event.preventDefault();
 
-    const data = await authenticate();
+    if (user.password !== user.confirmPassword) {
+      alert('passwords do not match');
+      return;
+    }
+
+    const data = await createUser(user);
 
     if (!data) {
-      alert('usuário ou senha incorretos');
+      alert('usuário já cadastrado');
       return setUser({ username: "", email: "", password: "", confirmPassword: "" });
     }
 
+    await authenticate();
     setUser({ username: "", email: "", password: "", confirmPassword: "" });
     navigate('/tasks');
   }

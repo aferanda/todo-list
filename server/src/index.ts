@@ -1,7 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 
-import { loginRoute, taskRoute } from './routes';
+import loginRoute from './user/login.routes';
+import taskRoute from './task/task.routes';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
