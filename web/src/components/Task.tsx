@@ -15,11 +15,9 @@ interface Task {
 export function Task() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  const userId = JSON.parse(localStorage.getItem('userId') || '');
-
   async function handleCompletedTask(event: ChangeEvent<HTMLInputElement>) {
     await updateDoneTask(event.target.id, event.target.checked);
-    const data = await getTasks(userId);
+    const data = await getTasks();
     setTasks(data);
   }
 
@@ -29,13 +27,13 @@ export function Task() {
 
   async function handleTaskDeletion(id: string) {
     await removeTask(id);
-    const data = await getTasks(userId);
+    const data = await getTasks();
     setTasks(data);
   }
 
   useEffect(() => {
     async function getAllTasks() {
-      const data = await getTasks(userId);
+      const data = await getTasks();
       setTasks(data);
     }
 
@@ -44,7 +42,7 @@ export function Task() {
 
   return (
     <>
-      <NewTask userId={userId} setTasks={setTasks} />
+      <NewTask setTasks={setTasks} />
       <section className={styles.tasks}>
         <div className={styles.tasksInfo}>
           <strong className={styles.createdTaskCounter}>

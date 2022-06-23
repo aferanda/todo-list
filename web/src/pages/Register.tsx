@@ -10,7 +10,7 @@ import styles from './Register.module.css';
 
 export function Register() {
   const navigate = useNavigate();
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, authenticate } = useContext(UserContext);
 
   const route = '/';
   const page = 'register';
@@ -30,7 +30,7 @@ export function Register() {
       return setUser({ username: "", email: "", password: "", confirmPassword: "" });
     }
 
-    localStorage.setItem('userId', JSON.stringify(data.userId));
+    await authenticate();
     setUser({ username: "", email: "", password: "", confirmPassword: "" });
     navigate('/tasks');
   }

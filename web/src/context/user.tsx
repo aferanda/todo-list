@@ -1,4 +1,5 @@
 import { createContext, Dispatch, SetStateAction, useState } from 'react';
+import { loginUser } from '../service/api';
 
 interface User {
   username: string;
@@ -7,9 +8,15 @@ interface User {
   confirmPassword: string;
 }
 
+interface UserAuth {
+  userId: string;
+  token: string;
+}
+
 interface UserContext {
   user: User;
   setUser: Dispatch<SetStateAction<User>>;
+  authenticate: () => Promise<UserAuth>;
 }
 
 interface UserProvider {
@@ -21,9 +28,18 @@ export const UserContext = createContext<UserContext>({} as UserContext);
 export function UserProvider({ children }: UserProvider) {
   const [user, setUser] = useState({ username: "", email: "", password: "", confirmPassword: "" });
 
+  async function authenticate() {
+    const data = await loginUser({ email: user.email, password: user.password });
+
+    localStorage.setItem('token', JSON.stringify(data.token));
+
+    return data;
+  }
+
   const context = {
     user,
     setUser,
+    authenticate,
   }
 
   return (

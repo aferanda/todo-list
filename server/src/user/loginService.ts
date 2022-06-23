@@ -26,7 +26,7 @@ class LoginService {
 
     const token = jwtGenerator({ id: user.id, email: user.email });
 
-    return { code: 200, userId: user.id, token };
+    return { code: 200, token };
   }
   async create(body: IUser) {
     const { username, email, password } = body;
@@ -47,7 +47,7 @@ class LoginService {
 
     const token = jwtGenerator({ id: user.id, email: user.email });
 
-    return { code: 201, userId: user.id, token };
+    return { code: 201, token };
   }
 }
 
