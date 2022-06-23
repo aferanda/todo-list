@@ -11,9 +11,6 @@ export function Login() {
   const navigate = useNavigate();
   const { setUser, authenticate } = useContext(UserContext);
 
-  const route = '/register';
-  const page = 'login';
-
   async function handleLogin(event: FormEvent) {
     event.preventDefault();
 
@@ -32,7 +29,7 @@ export function Login() {
     <>
       <Header />
       <section className={styles.loginBox}>
-        <Form route={route} page={page} handleLogin={handleLogin} />
+        <Form route="/register" page="login" handleLogin={handleLogin} />
       </section>
     </>
   )

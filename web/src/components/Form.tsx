@@ -5,8 +5,8 @@ import { UserContext } from "../context/user";
 import styles from './Form.module.css';
 
 interface FormProps {
-  route: string;
-  page: string;
+  route: '/register' | '/';
+  page: 'login' | 'register';
   handleLogin: (event: FormEvent) => void;
 }
 
